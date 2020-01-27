@@ -1,0 +1,4 @@
+[run]
+include = inte_dashboard/*
+omit = inte_dashboard/tests/*,inte_dashboard/migrations/*
+branch = 1
