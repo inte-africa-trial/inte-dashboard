@@ -18,47 +18,10 @@ register = template.Library()
 )
 def screening_button(context, model_wrapper):
     title = "Edit subject's screening form"
-    perms = context["perms"]
-
-    p1 = model_wrapper.object.eligible_part_one
-
-    continue_p2 = YES
-    if (
-        model_wrapper.object.eligible_part_one == NO
-        and model_wrapper.object.continue_part_two == NO
-    ):
-        continue_p2 = NO
-
-    p2 = model_wrapper.object.eligible_part_two
-    p3 = model_wrapper.object.eligible_part_three
-    p1_enabled = perms.user.has_perms(
-        "inte_screening.view_screeningpartone"
-    ) or perms.user.has_perm("inte_screening.change_screeningpartone")
-    p2_enabled = (
-        perms.user.has_perm("inte_screening.view_screeningparttwo")
-        or perms.user.has_perm("inte_screening.change_screeningparttwo")
-    ) and p1 in [YES, NO]
-    p3_enabled = (
-        (
-            perms.user.has_perm("inte_screening.view_screeningparttwo")
-            or perms.user.has_perm("inte_screening.change_screeningparttwo")
-        )
-        and p1 == YES
-        and p2 == YES
-    )
     return dict(
-        continue_p2=continue_p2,
         perms=context["perms"],
         screening_identifier=model_wrapper.object.screening_identifier,
-        href_p1=model_wrapper.href_p1,
-        href_p2=model_wrapper.href_p2,
-        href_p3=model_wrapper.href_p3,
-        p1=p1,
-        p2=p2,
-        p3=p3,
-        p1_enabled=p1_enabled,
-        p2_enabled=None if continue_p2 == NO else p2_enabled,
-        p3_enabled=p3_enabled,
+        href=model_wrapper.href,
         title=title,
         YES=YES,
         NO=NO,
@@ -78,7 +41,8 @@ def eligibility_button(subject_screening_model_wrapper):
         comment = obj.reasons_ineligible.split("|")
         comment = list(set(comment))
         comment.sort()
-    soup = BeautifulSoup(eligibility_display_label(obj), features="html.parser")
+    soup = BeautifulSoup(eligibility_display_label(obj),
+                         features="html.parser")
     return dict(
         eligible=obj.eligible,
         eligible_final=calculate_eligible_final(obj),
