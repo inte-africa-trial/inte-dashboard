@@ -2,12 +2,12 @@ import re
 
 from django.db.models import Q
 from edc_dashboard.view_mixins import EdcViewMixin
-from edc_constants.constants import ABNORMAL, NO
+from edc_constants.constants import ABNORMAL
 from edc_dashboard.view_mixins import ListboardFilterViewMixin, SearchFormViewMixin
 from edc_dashboard.views import ListboardView
 from edc_navbar import NavbarViewMixin
 
-from ...model_wrappers import ScreeningPartOneModelWrapper
+from ...model_wrappers import SubjectScreeningModelWrapper
 from .filters import ListboardViewFilters
 
 
@@ -24,12 +24,12 @@ class ListboardView(
     listboard_panel_style = "info"
     listboard_fa_icon = "fa-user-plus"
     listboard_view_filters = ListboardViewFilters()
-    listboard_model = "inte_screening.screeningpartone"
+    listboard_model = "inte_screening.subjectscreening"
     listboard_view_permission_codename = "edc_dashboard.view_screening_listboard"
 
     alternate_search_attr = "screening_identifier"
 
-    model_wrapper_cls = ScreeningPartOneModelWrapper
+    model_wrapper_cls = SubjectScreeningModelWrapper
     navbar_selected_item = "screened_subject"
     ordering = "-report_datetime"
     paginate_by = 10
@@ -49,7 +49,8 @@ class ListboardView(
     def get_queryset_filter_options(self, request, *args, **kwargs):
         options = super().get_queryset_filter_options(request, *args, **kwargs)
         if kwargs.get("screening_identifier"):
-            options.update({"screening_identifier": kwargs.get("screening_identifier")})
+            options.update(
+                {"screening_identifier": kwargs.get("screening_identifier")})
         return options
 
     def extra_search_options(self, search_term):

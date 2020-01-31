@@ -12,6 +12,9 @@ from .views import (
 
 app_name = "inte_dashboard"
 
+
+# make sure subject_identifier_pattern is correct to avoid
+# ModelAdminNextUrlRedirectError at /admin/inte_consent/subjectconsent/add/
 subject_identifier_pattern = django_apps.get_app_config(
     "edc_identifier"
 ).subject_identifier_pattern  # "092\-[0-9\-]+"

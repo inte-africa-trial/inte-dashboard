@@ -34,7 +34,8 @@ class SubjectScreeningModelWrapper(ConsentModelWrapperMixin, ModelWrapper):
 
     @property
     def consent_model_obj(self):
-        consent_model_cls = django_apps.get_model(self.consent_model_wrapper_cls.model)
+        consent_model_cls = django_apps.get_model(
+            self.consent_model_wrapper_cls.model)
         try:
             return consent_model_cls.objects.get(**self.consent_options)
         except ObjectDoesNotExist:
@@ -46,32 +47,3 @@ class SubjectScreeningModelWrapper(ConsentModelWrapperMixin, ModelWrapper):
         if self.screening_identifier:
             human = f"{self.screening_identifier[0:4]}-{self.screening_identifier[4:]}"
         return human or self.screening_identifier
-
-    @property
-    def href_p1(self):
-        return self.href.replace("subjectscreening", "screeningpartone")
-
-    @property
-    def href_p2(self):
-        return self.href.replace("subjectscreening", "screeningparttwo")
-
-    @property
-    def href_p3(self):
-        return self.href.replace("subjectscreening", "screeningpartthree")
-
-
-class ScreeningPartOneModelWrapper(SubjectScreeningModelWrapper):
-
-    model = "inte_screening.screeningpartone"
-
-    @property
-    def href_p1(self):
-        return self.href
-
-    @property
-    def href_p2(self):
-        return self.href.replace("screeningpartone", "screeningparttwo")
-
-    @property
-    def href_p3(self):
-        return self.href.replace("screeningpartone", "screeningpartthree")
