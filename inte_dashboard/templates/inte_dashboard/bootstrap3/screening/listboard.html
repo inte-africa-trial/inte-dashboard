@@ -54,7 +54,7 @@
     <td>{{ result.human_screening_identifier }} </td>
     <td nowrap>{{ result.initials }}</td>
     <td nowrap>{{ result.age_in_years }} yrs {{ result.gender }}</td>
-    <td nowrap>{% if result.hiv_status == POS %}Hi{%endif%}{%if result.diabetic == YES %}D{%endif%}{%if result.hypertensive == YES %}Hy{%endif%}</td>
+    <td nowrap>{% if result.qualifying_condition == YES %}HIV/DIA/HYP{%endif%}</td>
     <td nowrap>{% if result.consent %}{{ result.consent.subject_identifier }}{% else %} -- {% endif %}</td>
     <td nowrap>{{ result.user_created }}</td>
     <td nowrap>{{ result.object.modified|date:"SHORT_DATETIME_FORMAT" }}</td>  

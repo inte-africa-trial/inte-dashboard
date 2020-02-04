@@ -41,8 +41,7 @@ def eligibility_button(subject_screening_model_wrapper):
         comment = obj.reasons_ineligible.split("|")
         comment = list(set(comment))
         comment.sort()
-    soup = BeautifulSoup(eligibility_display_label(obj),
-                         features="html.parser")
+    soup = BeautifulSoup(eligibility_display_label(obj), features="html.parser")
     return dict(
         eligible=obj.eligible,
         eligible_final=calculate_eligible_final(obj),
