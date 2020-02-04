@@ -26,10 +26,8 @@ if settings.APP_NAME == "inte_dashboard":
         protocol_name = "INTE"
         protocol_number = "093"
         protocol_title = ""
-        study_open_datetime = datetime(
-            2019, 7, 31, 0, 0, 0, tzinfo=gettz("UTC"))
-        study_close_datetime = datetime(
-            2022, 12, 31, 23, 59, 59, tzinfo=gettz("UTC"))
+        study_open_datetime = datetime(2019, 7, 31, 0, 0, 0, tzinfo=gettz("UTC"))
+        study_close_datetime = datetime(2022, 12, 31, 23, 59, 59, tzinfo=gettz("UTC"))
 
     class EdcAppointmentAppConfig(BaseEdcAppointmentAppConfig):
         configurations = [
@@ -53,8 +51,7 @@ if settings.APP_NAME == "inte_dashboard":
         }
 
     class EdcVisitTrackingAppConfig(BaseEdcVisitTrackingAppConfig):
-        visit_models = {"inte_subject": (
-            "subject_visit", "inte_subject.subjectvisit")}
+        visit_models = {"inte_subject": ("subject_visit", "inte_subject.subjectvisit")}
 
     class EdcIdentifierAppConfig(BaseEdcIdentifierAppConfig):
         identifier_prefix = "093"
