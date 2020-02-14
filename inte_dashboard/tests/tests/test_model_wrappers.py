@@ -11,7 +11,7 @@ from edc_subject_model_wrappers import (
     SubjectConsentModelWrapper,
     SubjectVisitModelWrapper,
 )
-from inte_screening.tests.inte_test_case_mixin import MetaTestCaseMixin
+from inte_screening.tests.inte_test_case_mixin import InteTestCaseMixin
 
 
 class SubjectModelWrapperTestHelper(ModelWrapperTestHelper):
@@ -22,8 +22,7 @@ class ScreeningModelWrapperTestHelper(ModelWrapperTestHelper):
     dashboard_url = "/screening_listboard/"
 
 
-class TestModelWrappers(MetaTestCaseMixin, TestCase):
-
+class TestModelWrappers(InteTestCaseMixin, TestCase):
     model_wrapper_helper_cls = SubjectModelWrapperTestHelper
 
     def setUp(self):

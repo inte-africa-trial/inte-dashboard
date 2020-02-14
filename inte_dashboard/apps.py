@@ -11,15 +11,13 @@ class AppConfig(DjangoAppConfig):
 
 
 if settings.APP_NAME == "inte_dashboard":
-
     from dateutil.relativedelta import MO, TU, WE, TH, FR, SA, SU
-    from edc_appointment.appointment_config import AppointmentConfig
-    from edc_appointment.apps import AppConfig as BaseEdcAppointmentAppConfig
     from edc_facility.apps import AppConfig as BaseEdcFacilityAppConfig
     from edc_identifier.apps import AppConfig as BaseEdcIdentifierAppConfig
-    from edc_intedata.apps import AppConfig as BaseEdcMetadataAppConfig
+    from edc_metadata.apps import AppConfig as BaseEdcMetadataAppConfig
     from edc_visit_tracking.apps import AppConfig as BaseEdcVisitTrackingAppConfig
     from edc_protocol.apps import AppConfig as BaseEdcProtocolAppConfig
+
 
     class EdcProtocolAppConfig(BaseEdcProtocolAppConfig):
         protocol = "EDC093"
@@ -29,14 +27,6 @@ if settings.APP_NAME == "inte_dashboard":
         study_open_datetime = datetime(2019, 7, 31, 0, 0, 0, tzinfo=gettz("UTC"))
         study_close_datetime = datetime(2022, 12, 31, 23, 59, 59, tzinfo=gettz("UTC"))
 
-    class EdcAppointmentAppConfig(BaseEdcAppointmentAppConfig):
-        configurations = [
-            AppointmentConfig(
-                model="edc_appointment.appointment",
-                related_visit_model="inte_subject.subjectvisit",
-                appt_type="hospital",
-            )
-        ]
 
     class EdcFacilityAppConfig(BaseEdcFacilityAppConfig):
         country = "uganda"
@@ -50,11 +40,14 @@ if settings.APP_NAME == "inte_dashboard":
             ),
         }
 
+
     class EdcVisitTrackingAppConfig(BaseEdcVisitTrackingAppConfig):
         visit_models = {"inte_subject": ("subject_visit", "inte_subject.subjectvisit")}
 
+
     class EdcIdentifierAppConfig(BaseEdcIdentifierAppConfig):
         identifier_prefix = "093"
+
 
     class EdcMetadataAppConfig(BaseEdcMetadataAppConfig):
         reason_field = {"inte_subject.subjectvisit": "reason"}
